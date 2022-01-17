@@ -1,0 +1,140 @@
+/* pages/music-play/index.wxss */
+page {
+  color: #ccc;
+}
+
+.bg-image,
+.bg-cover {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.bg-cover {
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  backdrop-filter: blur(20px);
+}
+/* 标题栏中间插槽 */
+.tab {
+  display: flex;
+}
+.divider {
+  margin: 0 12rpx;
+}
+.active {
+  color: #fff;
+  font-weight: 700;
+}
+/* 真正的页面内容 */
+.page-content {
+  color: #fff;
+}
+.page-content .music {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 30rpx 60rpx;
+}
+
+/* 封面 */
+.album {
+  display: flex;
+  /* align-items: center; */
+  flex: 5;
+}
+.album .image {
+  width: 100%;
+  border-radius: 12rpx;
+}
+
+/* 歌曲信息 */
+.music .info {
+  margin: 20rpx 0;
+}
+.music .info .title {
+  font-size: 48rpx;
+  font-weight: 700;
+}
+.music .info .singer,
+.music .info .alias {
+  font-size: 26rpx;
+  color: #ccc;
+  margin: 16rpx 0;
+}
+/* 歌词 */
+.music .lyrics {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+/* 进度 */
+.progress {
+  margin: 10rpx 0;
+}
+
+.slider {
+  margin: 0 0 18rpx 20rpx;
+}
+
+.time {
+  display: flex;
+  justify-content: space-between;
+  color: #ccc;
+  font-size: 22rpx;
+}
+.time .current {
+  margin-left: 10rpx;
+}
+
+/* 操作css */
+.operations {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20rpx 0 30rpx;
+}
+.operations .btn {
+  /* display: inline-block; */
+  width: 60rpx;
+  height: 60rpx;
+  padding: 0;
+}
+.operations .btn-mode {
+  width: 80rpx;
+  height: 80rpx;
+}
+.operations .btn-pause {
+  width: 130rpx;
+  height: 130rpx;
+}
+
+.lyrics-content {
+  overflow: hidden;
+  height: 100%;
+  box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+.lyrics-content .lyric {
+  height: 35px;
+  line-height: 35px;
+  font-size: 28rpx;
+  text-align: center;
+  color: #989898;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lyrics-content .lyric-active {
+  color: #26ce8a;
+  font-size: 36rpx;
+}

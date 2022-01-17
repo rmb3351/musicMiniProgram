@@ -1,0 +1,5 @@
+<!--pages/detail-video/index.wxml-->
+<video src="{{mvURLInfo.url}}" autoplay object-fit="fill"></video>
+<block wx:for="{{200}}" wx:key="*this">
+  <view>数据{{item}}</view>
+</block>

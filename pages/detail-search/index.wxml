@@ -1,0 +1,38 @@
+<!--搜索框跳转的单独搜索页-->
+<van-search shape="round" placeholder="搜你想听的歌曲" bind:change="handleChanged" bind:search="handleSearched" value="{{searchContent}}" show-action="{{searchContent.length!==0}}"></van-search>
+
+<!-- 热门搜索 -->
+<view class="hot" wx:if="{{!searchContent.length}}">
+  <area-header title="热门搜索" showRight="{{false}}"></area-header>
+  <view class="hot">
+    <view class="list">
+      <block wx:for="{{hotKeywords}}" wx:key="first">
+        <view class="tag" bind:tap="handleKeywordClick" data-keyword="{{item.first}}">{{item.first}}</view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 搜索建议 -->
+<view class="suggest" wx:elif="{{showSuggestion}}">
+  <view class="title">搜索"{{searchContent}}"</view>
+  <view class="list">
+    <block wx:for="{{suggestSongs}}" wx:key="keyword">
+      <view class="item" bind:tap="handleKeywordClick" data-keyword="{{item.keyword}}">
+        <image class="icon" mode="widthFix" src="/assets/images/icons/search_icon.png"></image>
+        <!-- 取出相应下标的富文本nodes数组进行展示 -->
+        <rich-text nodes="{{suggestSongNodes[index]}}"></rich-text>
+      </view>
+    </block>
+  </view>
+</view>
+
+<!-- 搜索结果展示 -->
+<view class="result" wx:else>
+  <view class="title">最佳匹配</view>
+  <view class="list">
+    <block wx:for="{{searchResults}}" wx:key="id">
+      <song-menu-item-v2 item="{{item}}" index="{{index+1}}"></song-menu-item-v2>
+    </block>
+  </view>
+</view>

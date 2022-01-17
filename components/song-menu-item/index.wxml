@@ -1,0 +1,9 @@
+<!--主页歌单区域的每一个item封装-->
+<wxs src="../../utils/format.wxs" module="fotmat"></wxs>
+<view class="item">
+  <view class="top">
+    <image class="image" src="{{itemInfo.coverImgUrl}}" mode="widthFix"></image>
+    <view class="play-counter">{{fotmat.formatCount(itemInfo.playCount)}}</view>
+  </view>
+  <view class="bottom">{{itemInfo.name}}</view>
+</view>

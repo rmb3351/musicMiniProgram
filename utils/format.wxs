@@ -1,0 +1,30 @@
+function formatCount(count) {
+  // 先转为数字型
+  var countNum = parseInt(count);
+  if (countNum >= 100000000) {
+    return (countNum / 100000000).toFixed(1) + "亿";
+  } else if (countNum >= 10000) {
+    return (countNum / 10000).toFixed(1) + "万";
+  } else {
+    return countNum + "";
+  }
+}
+
+function plusZero(str) {
+  var retStr = "00" + str;
+  return retStr.slice(str.length);
+}
+
+function formatTime(time) {
+  time /= 1000;
+  var sec = Math.floor(time % 60) + "";
+  var min = Math.floor(time / 60) + "";
+  return plusZero(min) + ":" + plusZero(sec);
+}
+
+// commonJS暴露方法
+module.exports = {
+  // 键值对，不能简写
+  formatCount: formatCount,
+  formatTime: formatTime,
+};

@@ -1,0 +1,25 @@
+<!--榜单、推荐歌曲的详情页的item-->
+<view class="item" bindtap="songClick">
+  <view class="index">{{index}}</view>
+  <view class="info">
+    <view class="name">{{item.name}}</view>
+    <view class="source">
+      <image class="icon" src="/assets/images/icons/sq_icon.png"></image>
+      <text wx:if="{{item.ar}}">
+        <block wx:for="{{item.ar}}" wx:key="index">
+          <text>{{item.name}}</text>
+          <text wx:if="{{index!==artistisLength}}">/</text>
+        </block>
+      </text>
+      <text wx:elif="{{item.artists}}">
+        <block wx:for="{{item.artists}}" wx:key="index">
+          <text>{{item.name}}</text>
+          <text wx:if="{{index!==artistisLength}}">/</text>
+        </block>
+      </text>
+      <text class="dots"> - </text>
+      <text wx:if="{{item.alia[0]||item.alias[0]}}">{{item.alia[0]||item.alias[0]}}</text>
+      <text wx:else>{{item.name}}</text>
+    </view>
+  </view>
+</view>

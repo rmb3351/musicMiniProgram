@@ -1,0 +1,18 @@
+/**index.wxss**/
+page {
+  padding: 0 20rpx;
+}
+.van-search {
+  padding: 10rpx 0 !important;
+}
+.swiper {
+  border-radius: 10rpx;
+  overflow: hidden;
+  /* 解决真机没有圆角的bug */
+  transform: translateY(0);
+}
+.swiper .swiper-item {
+}
+.swiper-item .swiper-item-image {
+  width: 100%;
+}

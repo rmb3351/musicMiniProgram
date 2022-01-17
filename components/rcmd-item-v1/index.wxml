@@ -1,0 +1,16 @@
+<!--主页推荐区域item-->
+<view class="item" bindtap="songClick">
+  <image class="image" src="{{itemInfo.al.picUrl}}"></image>
+  <view class="content">
+    <view class="name">{{itemInfo.name}}</view>
+    <view class="source">
+      <block wx:for="{{itemInfo.ar}}" wx:key="index">
+        <text>{{item.name}}</text>
+        <text wx:if="{{index!==itemInfo.ar.length-1}}">/</text>
+      </block> - {{itemInfo.alia[0]||itemInfo.al.name}}
+    </view>
+  </view>
+  <view class="arrow">
+    <image class="icon" src="/assets/images/icons/arrow-right.png"></image>
+  </view>
+</view>

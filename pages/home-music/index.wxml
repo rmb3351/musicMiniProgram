@@ -1,0 +1,30 @@
+<!--index.wxml-->
+<!-- 搜索框 -->
+<van-search shape="round" placeholder="搜你想听的歌曲" disabled bind:click-input="toSearch"></van-search>
+<!-- 轮播图 -->
+<swiper class="swiper" autoplay circular indicator-dots style="height: {{swiperHeight}}px;">
+  <block wx:for="{{banners}}" wx:key="bannerId">
+    <swiper-item class="swiper-item">
+      <image class="swiper-item-image" src="{{item.pic}}" mode="widthFix" bindload="getImageHeight"></image>
+    </swiper-item>
+  </block>
+</swiper>
+<!-- 推荐歌曲 -->
+<view class="recommend-song" wx:if="{{recommendSongs.length}}">
+  <area-header title="推荐歌曲" bind:moreclick="handleMoreClick">
+  </area-header>
+  <view class="song-list">
+    <block wx:for="{{recommendSongs}}" wx:key="id">
+      <rcmd-item-v1 itemInfo="{{item}}"></rcmd-item-v1>
+    </block>
+  </view>
+</view>
+<!-- 歌单 -->
+<song-menu-area songMenu="{{hotSongMenu}}" title="热门歌单" wx:if="{{hotSongMenu.length}}"></song-menu-area>
+<song-menu-area songMenu="{{chineseSongMenu}}" title="华语歌单" wx:if="{{chineseSongMenu.length}}"></song-menu-area>
+<!-- 巅峰榜 -->
+<area-header title="巅峰榜" showRight="{{false}}"></area-header>
+<block wx:for="{{rankings}}" wx:key="index">
+  <!-- 注意，这里的index是手动定义的属性名 -->
+  <ranking-area-item itemInfo="{{item}}" bindtap="handleRankingItemClick" data-idx="{{index}}"></ranking-area-item>
+</block>

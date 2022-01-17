@@ -1,0 +1,16 @@
+<!--components/video-item-v1/index.wxml-->
+<wxs src="../../utils/format.wxs" module="format"></wxs>
+<!-- html里的方法，自定义属性，那边用事件对象获取的时候可以拿到 -->
+<view bindtap="mvItemClick" data-click="{{mvInfo}}">
+  <view class="cover">
+    <!-- 不要固定宽高比的模式 -->
+    <image class="image" src="{{mvInfo.cover}}" mode="widthFix">
+    </image>
+    <view class="info">
+      <view class="count">{{format.formatCount(mvInfo.playCount)}}</view>
+      <view class="duration">{{format.formatTime(mvInfo.mv.videos[0].duration)}}</view>
+    </view>
+  </view>
+  <view class="content">
+    {{mvInfo.name}} - {{mvInfo.artistName}}</view>
+</view>

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "nav-bar": "../../base-ui/nav-bar"
+  },
+  "navigationBarTextStyle": "white",
+  "navigationStyle": "custom"
+}
