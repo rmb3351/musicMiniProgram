@@ -17,7 +17,6 @@ export function parseSongLyrics(lyrics) {
       allLyrics.push({ showingTime, showingLyric });
     }
   });
-  // console.log(allLyrics);
   return allLyrics;
 }
 
@@ -30,6 +29,6 @@ export function findCurrentLyricIndex(allLyrics, currentTime) {
       break;
     }
   }
-  // console.log(allLyrics[i - 1].showingLyric);
-  return i - 1;
+  // 排除一开始返回-1的情况
+  return i - 1 >= 0 ? i - 1 : i;
 }

@@ -6,6 +6,7 @@ import {
 } from "../../service/getSearchData";
 import debounce from "../../utils/debounce";
 import strToNodes from "../../utils/str2Nodes";
+import { playingStore } from "../../store/index";
 // 获取防抖处理后的请求函数
 const debounceGetSearchSuggest = debounce(getSearchSuggest, 300);
 
@@ -32,6 +33,8 @@ Page({
       this.setData({ hotKeywords: res.result.hots });
     });
   },
+
+  // 监听事件
   handleChanged(e) {
     this.setData({ searchContent: e.detail });
     if (!this.data.searchContent.length) {
@@ -59,14 +62,21 @@ Page({
     });
   },
   handleSearched() {
-    this.setData({ showSuggestion: false });
+    // 不保留上次结果
+    this.setData({ searchResults: [], showSuggestion: false });
     getSearchResult(this.data.searchContent).then((res) => {
-      this.setData({ searchResults: res.result.songs });
+      if (res.result.songs) this.setData({ searchResults: res.result.songs });
     });
   },
   // 给热门搜索和搜索建议添加同名自定义属性，事件对象传关键词即可合并处理两个关键词点击的搜索，再根据关键词修改搜索内容，即可调用handleSearched
   handleKeywordClick(e) {
     this.setData({ searchContent: e.currentTarget.dataset.keyword });
     this.handleSearched();
+  },
+  handleSongMenuItemClick(e) {
+    console.log(e.currentTarget.dataset.index);
+    console.log(this.data.searchResults);
+    playingStore.setState("playingSongList", this.data.searchResults);
+    playingStore.setState("playingSongIndex", e.currentTarget.dataset.index);
   },
 });

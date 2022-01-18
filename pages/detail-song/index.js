@@ -1,5 +1,5 @@
 // pages/detail-song/index.js
-import { rankingStore } from "../../store/ranking-store";
+import { rankingStore, playingStore } from "../../store/index";
 import { getSongMenuDetail } from "../../service/getMusicData";
 Page({
   /**
@@ -35,5 +35,11 @@ Page({
   },
   updateRankingData(res) {
     this.setData({ songInfo: res });
+  },
+  handleSongMenuItemClick(e) {
+    console.log(e.currentTarget.dataset.index);
+    console.log(this.data.songInfo.tracks);
+    playingStore.setState("playingSongList", this.data.songInfo.tracks);
+    playingStore.setState("playingSongIndex", e.currentTarget.dataset.index);
   },
 });

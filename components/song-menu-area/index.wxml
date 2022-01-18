@@ -1,7 +1,7 @@
 <!--歌单封装-->
 <area-header title="{{title}}"></area-header>
 <scroll-view scroll-x class="menu-view">
-  <block wx:for="{{songMenu}}" wx:key="id">
+  <block wx:for="{{songMenu}}" wx:key="index">
     <song-menu-item class="menu-item" itemInfo="{{item}}" bindtap="toMenuDetail" data-info="{{item}}"></song-menu-item>
   </block>
 </scroll-view>

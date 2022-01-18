@@ -32,7 +32,7 @@
   <view class="title">最佳匹配</view>
   <view class="list">
     <block wx:for="{{searchResults}}" wx:key="id">
-      <song-menu-item-v2 item="{{item}}" index="{{index+1}}"></song-menu-item-v2>
+      <song-menu-item-v2 item="{{item}}" index="{{index+1}}" bindtap="handleSongMenuItemClick" data-index="{{index}}"></song-menu-item-v2>
     </block>
   </view>
 </view>

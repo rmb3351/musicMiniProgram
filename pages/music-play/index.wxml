@@ -40,9 +40,9 @@
     <!-- 底部操作栏 -->
     <view class="operations">
       <image class="btn btn-mode" src="/assets/images/player/play_{{modeIconName}}.png" bindtap="handleModeClick"></image>
-      <image class="btn btn-prev" src="/assets/images/player/play_prev.png"></image>
+      <image class="btn btn-prev" src="/assets/images/player/play_prev.png" bindtap="handleSongChangeBtnClick" data-type="prev"></image>
       <image class="btn btn-pause" src="/assets/images/player/play_{{playingIconName}}.png" bindtap="handlePlayClick"></image>
-      <image class="btn btn-next" src="/assets/images/player/play_next.png"></image>
+      <image class="btn btn-next" src="/assets/images/player/play_next.png" bindtap="handleSongChangeBtnClick" data-type="next"></image>
       <image class="btn btn-music" src="/assets/images/player/play_music.png"></image>
     </view>
   </swiper-item>

@@ -13,7 +13,7 @@ page {
   z-index: -1;
 }
 .bg-cover {
-  /* background-color: rgba(0, 0, 0, 0.5); */
+  background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(20px);
 }
 /* 标题栏中间插槽 */

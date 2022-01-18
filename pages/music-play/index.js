@@ -95,7 +95,6 @@ Page({
     if (this.data.isSliding) {
       this.setData({ isSliding: false });
     }
-    // inAuCtxt.pause();
     const percent = e.detail.value;
     const currentTime = this.data.durationTime * (percent / 100);
     playingStore.setState("currentTime", currentTime);
@@ -126,6 +125,11 @@ Page({
     playingStore.setState("playingModeIndex", playingModeIndex);
   },
   handlePlayClick() {
-    playingStore.dispatch("changePlayingStatusAction");
+    playingStore.dispatch("changePlayingStatusAction", !this.data.isPlaying);
+  },
+  // 切歌调用同一个方法，只用传参区分
+  handleSongChangeBtnClick(e) {
+    const type = e.currentTarget.dataset.type;
+    playingStore.dispatch("changeSongIndexInListAction", { type });
   },
 });

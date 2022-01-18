@@ -18,20 +18,22 @@
   font-size: 30rpx;
 }
 .info .source {
+  height: 24rpx;
   margin-top: 10rpx;
-  color: #666;
   line-height: 24rpx;
+  font-size: 24rpx;
+  color: #666;
 }
 .source .icon {
   display: inline-block;
   margin-right: 10rpx;
-  vertical-align: middle;
+  vertical-align: bottom;
   width: 38rpx;
   height: 24rpx;
 }
-.source text {
+/* .source text {
   font-size: 24rpx;
-}
+} */
 .source .dot {
   margin: 0 6rpx;
 }

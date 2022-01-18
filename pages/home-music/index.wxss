@@ -1,6 +1,9 @@
 /**index.wxss**/
-page {
+.page-content {
   padding: 0 20rpx;
+}
+.content-pdbt {
+  padding-bottom: 100rpx;
 }
 .van-search {
   padding: 10rpx 0 !important;
@@ -11,8 +14,74 @@ page {
   /* 解决真机没有圆角的bug */
   transform: translateY(0);
 }
-.swiper .swiper-item {
-}
 .swiper-item .swiper-item-image {
   width: 100%;
+}
+
+.play-bar {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 8px;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 44px;
+  bottom: 0;
+
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  background: #fafafa;
+}
+.play-bar .left,
+.play-bar .right {
+  display: flex;
+  align-items: center;
+}
+
+.left .album {
+  position: relative;
+  top: -8px;
+  /* margin-right: 10rpx; */
+
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+}
+.left .name {
+  position: absolute;
+  left: 60px;
+  top: 0;
+  right: 70px;
+  height: 44px;
+  line-height: 44px;
+  font-size: 14px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.right .icon {
+  width: 30px;
+  height: 30px;
+}
+.right .play {
+  margin-left: 10rpx;
+  width: 25px;
+  height: 25px;
+}
+
+@keyframes coverRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.album-anim {
+  animation: coverRotate 16s linear infinite;
 }

@@ -1,7 +1,7 @@
 // 接口获取方式：
-https://binaryify.github.io/NeteaseCloudMusicApi/#/
+// https://binaryify.github.io/NeteaseCloudMusicApi/#/
 // 填你获取的接口值
-const BASE_URL=""
+const BASE_URL = "";
 // 封装一个基础的网络请求类（simplify request），简化请求
 class SFRequest {
   // 发送通用网络请求,返回promise
