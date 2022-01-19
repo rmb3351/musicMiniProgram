@@ -98,7 +98,6 @@ Page({
     const percent = e.detail.value;
     const currentTime = this.data.durationTime * (percent / 100);
     playingStore.setState("currentTime", currentTime);
-    inAuCtxt.pause();
     inAuCtxt.seek(currentTime / 1000);
     this.setData({ currentTime, percent });
     // 手动更新store的currentTime方便获取准确歌词
@@ -130,6 +129,6 @@ Page({
   // 切歌调用同一个方法，只用传参区分
   handleSongChangeBtnClick(e) {
     const type = e.currentTarget.dataset.type;
-    playingStore.dispatch("changeSongIndexInListAction", { type });
+    playingStore.dispatch("changeSongIndexInListAction", type);
   },
 });

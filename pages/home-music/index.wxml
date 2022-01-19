@@ -36,7 +36,7 @@
 </view>
 <!-- 底部播放状态栏 -->
 <view class="play-bar" wx:if="{{playingSongInfo.name!==undefined}}">
-  <view class="left">
+  <view class="left" bindtap="handleBarClick">
     <image class="album album-anim" src="{{playingSongInfo.al.picUrl}}" mode="aspectFit" style="animation-play-state: {{coverAnimState}};"></image>
     <view class="name">{{playingSongInfo.name}} - <block wx:for="{{playingSongInfo.ar}}" wx:key="index">
         <text>{{item.name}}</text>
@@ -45,7 +45,7 @@
     </view>
   </view>
   <view class="right">
-    <image class="icon play" src="/assets/images/music/{{isPlaying?'pause':'play'}}_icon.png" bindtap="handldPlayBtnClick"></image>
+    <image class="icon play" src="/assets/images/music/{{isPlaying?'pause':'play'}}_icon.png" catchtap="handldPlayBtnClick"></image>
     <image class="icon playlist" src="/assets/images/music/playlist_icon.png"></image>
   </view>
 </view>

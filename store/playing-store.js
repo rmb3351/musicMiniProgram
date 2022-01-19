@@ -2,7 +2,9 @@ import { HYEventStore } from "hy-event-store";
 import { getPlayingSong, getSongLyrics } from "../service/getPlayData";
 import { parseSongLyrics, findCurrentLyricIndex } from "../utils/handleLyrics";
 
-const inAuCtxt = wx.createInnerAudioContext();
+// const inAuCtxt = wx.createInnerAudioContext();
+// 沿用老名字可以不用做过多修改
+const inAuCtxt = wx.getBackgroundAudioManager();
 
 const playingStore = new HYEventStore({
   state: {
@@ -20,30 +22,23 @@ const playingStore = new HYEventStore({
     playingSongList: [],
     playingSongIndex: 0,
     // 随机播放历史记录
+    // 适配后台播放器
     isPlaying: false,
     isFirstPlaying: true,
+    isStopped: false,
   },
   actions: {
     playMusicWithSongIdActions(ctx, { id, replay = false }) {
       // 歌曲相同且不是指定要重播时不用做任何处理
       if (ctx.id === id && !replay) return;
-      else if (replay) {
-        // 指定重播的，直接重播即可
-        inAuCtxt.stop();
-        return;
-      }
-      // 不是指定重播的，先去除残影
-      ctx.allLyrics = [];
-      ctx.currentTime = 0;
-      ctx.currentLyricIndex = 0;
-      ctx.durationTime = 0;
-      ctx.playingSongInfo = {};
+
       ctx.id = id;
+      ctx.isPlaying = true;
       getPlayingSong(id).then((res) => {
         ctx.playingSongInfo = res.songs[0];
         ctx.durationTime = res.songs[0].dt;
+        inAuCtxt.title = ctx.playingSongInfo.name;
       });
-      ctx.isPlaying = true;
       getSongLyrics(id).then((res) => {
         // 获取的歌曲字符串先进行解析，返回记录多少毫秒显示什么的数组
         const allLyrics = parseSongLyrics(res.lrc.lyric);
@@ -52,11 +47,11 @@ const playingStore = new HYEventStore({
 
       inAuCtxt.stop();
       inAuCtxt.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`;
+      inAuCtxt.title = id;
       if (ctx.isFirstPlaying) {
         ctx.isFirstPlaying = false;
         // 开启默认播放
         inAuCtxt.autoplay = true;
-
         // 直接由这里开始dispatch绑定事件的action
         this.dispatch("setupInAuCtxtLsnerActions");
       }
@@ -76,24 +71,33 @@ const playingStore = new HYEventStore({
           ctx.currentLyricIndex = currentIndex;
         }
       });
-      inAuCtxt.onSeeking(() => {
-        // 更新歌词
-        const currentIndex = findCurrentLyricIndex(
-          ctx.allLyrics,
-          ctx.currentTime
-        );
-        if (ctx.currentLyricIndex !== currentIndex) {
-          ctx.currentLyricIndex = currentIndex;
-        }
-      });
-      inAuCtxt.onSeeked(() => {
-        if (ctx.isPlaying) inAuCtxt.play();
-      });
+      // inAuCtxt.onSeeking(() => {
+      //   console.log("??");
+      //   // 更新歌词
+      //   const currentIndex = findCurrentLyricIndex(
+      //     ctx.allLyrics,
+      //     ctx.currentTime
+      //   );
+      //   if (ctx.currentLyricIndex !== currentIndex) {
+      //     ctx.currentLyricIndex = currentIndex;
+      //   }
+      // });
+      // inAuCtxt.onSeeked(() => {
+      //   console.log("说话呀");
+      // });
       inAuCtxt.onError((res) => {
         console.log(res);
       });
+      // 为了统一后台底部栏和自己写的组件的状态
+      inAuCtxt.onPlay(() => {
+        ctx.isPlaying = true;
+      });
       inAuCtxt.onPause(() => {
-        console.log("pause");
+        ctx.isPlaying = false;
+      });
+      inAuCtxt.onStop(() => {
+        ctx.isStopped = true;
+        ctx.isPlaying = false;
       });
       inAuCtxt.onEnded(() => {
         this.dispatch("changeSongIndexInListAction");
@@ -101,16 +105,19 @@ const playingStore = new HYEventStore({
     },
     changePlayingStatusAction(ctx, isPlaying) {
       ctx.isPlaying = isPlaying;
+      if (isPlaying && ctx.isStopped) {
+        console.log("进");
+        // 防止停止后无法播放的问题
+        inAuCtxt.src = `https://music.163.com/song/media/outer/url?id=${ctx.id}.mp3`;
+        inAuCtxt.title = ctx.playingSongInfo.name;
+      }
       ctx.isPlaying ? inAuCtxt.play() : inAuCtxt.pause();
+      if (ctx.isStopped) ctx.isStopped = false;
     },
     // 切歌时的action
     changeSongIndexInListAction(ctx, type = "next") {
       let index = ctx.playingSongIndex;
       let id = ctx.id;
-      // 切歌取消暂停
-      if (!ctx.isPlaying) {
-        this.dispatch("changePlayingStatusAction", true);
-      }
       // 0:顺序播放、1:随机播放、2:单曲循环
       switch (ctx.playingModeIndex) {
         case 0:
@@ -120,9 +127,6 @@ const playingStore = new HYEventStore({
           } else {
             if (--index < 0) index = ctx.playingSongList.length - 1;
           }
-          ctx.playingSongIndex = index;
-          id = ctx.playingSongList[index].id;
-          this.dispatch("playMusicWithSongIdActions", { id });
           break;
         case 1:
           // 避免随机出重复的歌
@@ -132,17 +136,16 @@ const playingStore = new HYEventStore({
           ) {
             index = Math.floor(Math.random() * ctx.playingSongList.length);
           }
-          ctx.playingSongIndex = index;
-          id = ctx.playingSongList[index].id;
-          this.dispatch("playMusicWithSongIdActions", { id });
           break;
         case 2:
-          this.dispatch("playMusicWithSongIdActions", {
-            id,
-            replay: true,
-          });
           break;
       }
+      ctx.playingSongIndex = index;
+      id = ctx.playingSongList[index].id;
+      this.dispatch("playMusicWithSongIdActions", {
+        id,
+        replay: true,
+      });
     },
   },
 });

@@ -67,7 +67,6 @@ Page({
       ({ playingSongInfo, isPlaying }) => {
         if (playingSongInfo) {
           this.setData({ playingSongInfo });
-          console.log(playingSongInfo);
         }
         // 同步播放状态和动画
         if (isPlaying !== undefined) {
@@ -125,12 +124,16 @@ Page({
   },
   // 播放歌曲的入口存储歌曲所在列表及所在位置
   handleRcmdItemClick(e) {
-    console.log(this.data.recommendSongs);
-    console.log(e.currentTarget.dataset.index);
     playingStore.setState("playingSongList", this.data.recommendSongs);
     playingStore.setState("playingSongIndex", e.currentTarget.dataset.index);
   },
+  // 底部状态栏的监听
   handldPlayBtnClick() {
     playingStore.dispatch("changePlayingStatusAction", !this.data.isPlaying);
+  },
+  handleBarClick() {
+    wx.navigateTo({
+      url: "/pages/music-play/index?id=" + this.data.playingSongInfo.id,
+    });
   },
 });
