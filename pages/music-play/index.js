@@ -100,9 +100,6 @@ Page({
     playingStore.setState("currentTime", currentTime);
     inAuCtxt.seek(currentTime / 1000);
     this.setData({ currentTime, percent });
-    // 手动更新store的currentTime方便获取准确歌词
-    // 注意单位转换
-    // inAuCtxt.play();
   },
   // slider正在改变的处理函数
   handleSliderChanging(e) {

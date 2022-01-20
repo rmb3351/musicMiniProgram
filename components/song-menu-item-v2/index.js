@@ -29,7 +29,7 @@ Component({
     songClick() {
       const id = this.properties.item.id;
       wx.navigateTo({
-        url: `../../pages/music-play/index?id=${id}`,
+        url: `/pages/music-play/index?id=${id}`,
       });
       playingStore.dispatch("playMusicWithSongIdActions", { id });
     },

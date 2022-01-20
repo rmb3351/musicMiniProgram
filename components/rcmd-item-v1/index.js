@@ -23,10 +23,9 @@ Component({
     songClick() {
       const id = this.properties.itemInfo.id;
       wx.navigateTo({
-        url: `../../pages/music-play/index?id=${id}`,
+        url: `/pages/music-play/index?id=${id}`,
       });
       playingStore.dispatch("playMusicWithSongIdActions", { id });
-      console.log(this.properties.itemInfo);
     },
   },
 });

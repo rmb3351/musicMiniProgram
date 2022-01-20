@@ -22,7 +22,7 @@ Component({
     mvItemClick(e) {
       const iid = e.currentTarget.dataset.click.id;
       wx.navigateTo({
-        url: "../../pages/detail-video/index" + "?id=" + iid,
+        url: `/packageDetail/pages/detail-video/index?id=${iid}`,
       });
     },
   },

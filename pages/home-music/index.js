@@ -105,7 +105,7 @@ Page({
   // 监听事件
   toSearch() {
     wx.navigateTo({
-      url: "../detail-search/index",
+      url: "../../packageDetail/pages/detail-search/index",
     });
   },
   handleMoreClick() {
@@ -119,7 +119,7 @@ Page({
   // 由于都是到detail-song界面，所以要传参区分
   toSong(rankingName) {
     wx.navigateTo({
-      url: `/pages/detail-song/index?ranking=${rankingName}&type=rank`,
+      url: `../../packageDetail/pages/detail-song/index?ranking=${rankingName}&type=rank`,
     });
   },
   // 播放歌曲的入口存储歌曲所在列表及所在位置

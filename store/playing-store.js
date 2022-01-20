@@ -71,20 +71,6 @@ const playingStore = new HYEventStore({
           ctx.currentLyricIndex = currentIndex;
         }
       });
-      // inAuCtxt.onSeeking(() => {
-      //   console.log("??");
-      //   // 更新歌词
-      //   const currentIndex = findCurrentLyricIndex(
-      //     ctx.allLyrics,
-      //     ctx.currentTime
-      //   );
-      //   if (ctx.currentLyricIndex !== currentIndex) {
-      //     ctx.currentLyricIndex = currentIndex;
-      //   }
-      // });
-      // inAuCtxt.onSeeked(() => {
-      //   console.log("说话呀");
-      // });
       inAuCtxt.onError((res) => {
         console.log(res);
       });
@@ -96,6 +82,7 @@ const playingStore = new HYEventStore({
         ctx.isPlaying = false;
       });
       inAuCtxt.onStop(() => {
+        console.log("stop");
         ctx.isStopped = true;
         ctx.isPlaying = false;
       });
@@ -106,10 +93,11 @@ const playingStore = new HYEventStore({
     changePlayingStatusAction(ctx, isPlaying) {
       ctx.isPlaying = isPlaying;
       if (isPlaying && ctx.isStopped) {
-        console.log("进");
         // 防止停止后无法播放的问题
         inAuCtxt.src = `https://music.163.com/song/media/outer/url?id=${ctx.id}.mp3`;
         inAuCtxt.title = ctx.playingSongInfo.name;
+        // 停止位置开始播放
+        inAuCtxt.startTime = ctx.currentTime / 1000;
       }
       ctx.isPlaying ? inAuCtxt.play() : inAuCtxt.pause();
       if (ctx.isStopped) ctx.isStopped = false;
