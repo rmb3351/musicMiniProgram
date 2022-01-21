@@ -38,8 +38,6 @@ Page({
   },
   handleSongMenuItemClick(e) {
     playingStore.setState("playingSongList", this.data.songInfo.tracks);
-    console.log(this.data.songInfo.tracks);
     playingStore.setState("playingSongIndex", e.currentTarget.dataset.index);
-    console.log(e.currentTarget.dataset.index);
   },
 });

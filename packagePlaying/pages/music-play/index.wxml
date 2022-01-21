@@ -1,5 +1,5 @@
 <!--pages/music-play/index.wxml-->
-<wxs src="../../utils/format.wxs" module="format"></wxs>
+<wxs src="/utils/format.wxs" module="format"></wxs>
 <image class="bg-image" mode="aspectFill" src="{{playingSongInfo.al.picUrl}}"></image>
 <view class="bg-cover"></view>
 <nav-bar bind:leftClick="handleLeftClick">
@@ -39,11 +39,11 @@
     </view>
     <!-- 底部操作栏 -->
     <view class="operations">
-      <image class="btn btn-mode" src="/assets/images/player/play_{{modeIconName}}.png" bindtap="handleModeClick"></image>
-      <image class="btn btn-prev" src="/assets/images/player/play_prev.png" bindtap="handleSongChangeBtnClick" data-type="prev"></image>
-      <image class="btn btn-pause" src="/assets/images/player/play_{{playingIconName}}.png" bindtap="handlePlayClick"></image>
-      <image class="btn btn-next" src="/assets/images/player/play_next.png" bindtap="handleSongChangeBtnClick" data-type="next"></image>
-      <image class="btn btn-music" src="/assets/images/player/play_music.png"></image>
+      <image class="btn btn-mode" src="/packagePlaying/assets/images/playing/play_{{modeIconName}}.png" bindtap="handleModeClick"></image>
+      <image class="btn btn-prev" src="/packagePlaying/assets/images/playing/play_prev.png" bindtap="handleSongChangeBtnClick" data-type="prev"></image>
+      <image class="btn btn-pause" src="/packagePlaying/assets/images/playing/play_{{playingIconName}}.png" bindtap="handlePlayClick"></image>
+      <image class="btn btn-next" src="/packagePlaying/assets/images/playing/play_next.png" bindtap="handleSongChangeBtnClick" data-type="next"></image>
+      <image class="btn btn-music" src="/packagePlaying/assets/images/playing/play_music.png"></image>
     </view>
   </swiper-item>
 

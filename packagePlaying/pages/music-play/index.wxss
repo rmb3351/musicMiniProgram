@@ -42,8 +42,8 @@ page {
 /* 封面 */
 .album {
   display: flex;
-  /* align-items: center; */
-  flex: 5;
+  justify-content: center;
+  flex: 3;
 }
 .album .image {
   width: 100%;
@@ -52,7 +52,7 @@ page {
 
 /* 歌曲信息 */
 .music .info {
-  margin: 20rpx 0;
+  margin: 20rpx 0 0;
 }
 .music .info .title {
   font-size: 48rpx;
@@ -62,14 +62,36 @@ page {
 .music .info .alias {
   font-size: 26rpx;
   color: #ccc;
-  margin: 16rpx 0;
+  margin: 16rpx 0 20rpx;
 }
 /* 歌词 */
 .music .lyrics {
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   flex: 1;
+}
+/* 显示内容超出部分适配 */
+.music .title,
+.music .subtitle,
+.music .lyrics {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -moz-box;
+  -moz-line-clamp: 2;
+  -moz-box-orient: vertical;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+}
+.subtitle .singer,
+.subtitle .alias {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 进度 */
@@ -78,7 +100,7 @@ page {
 }
 
 .slider {
-  margin: 0 0 18rpx 20rpx;
+  margin: 0 0 10rpx 20rpx;
 }
 
 .time {
@@ -96,7 +118,6 @@ page {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20rpx 0 30rpx;
 }
 .operations .btn {
   /* display: inline-block; */

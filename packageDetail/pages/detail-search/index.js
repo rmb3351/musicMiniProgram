@@ -23,6 +23,11 @@ Page({
     searchResults: [],
     // 展示建议的逻辑不好判断，直接加data
     showSuggestion: false,
+    // 下拉加载更多相关功能的数据
+    canReachBottom: true,
+    resultsOffset: 0,
+    resultsLimit: 50,
+    resultsCount: 51,
   },
 
   /**
@@ -30,10 +35,9 @@ Page({
    */
   onLoad: function (options) {
     getSearchHotWords().then((res) => {
-      this.setData({ hotKeywords: res.result.hots });
+      this.setData({ hotKeywords: res.data });
     });
   },
-
   // 监听事件
   handleChanged(e) {
     this.setData({ searchContent: e.detail });
@@ -61,13 +65,58 @@ Page({
       this.setData({ suggestSongNodes });
     });
   },
-  handleSearched() {
-    // 不保留上次结果
-    this.setData({ searchResults: [], showSuggestion: false });
-    getSearchResult(this.data.searchContent).then((res) => {
-      if (res.result.songs) this.setData({ searchResults: res.result.songs });
-    });
+  // 下拉加载更多
+  onReachBottom() {
+    if (this.data.canReachBottom) this.handleSearched(true);
   },
+  // 搜索
+  async handleSearched(isBottom = false) {
+    this.checkBeforeSearch(isBottom);
+    this.setData({ showSuggestion: false });
+
+    if (this.data.resultsLimit < 1) return;
+    const keywords = this.data.searchContent;
+    const limit = this.data.resultsLimit;
+    const offset = this.data.resultsOffset;
+    const res = await getSearchResult({ keywords, offset, limit });
+    const resultsCount = res.result.songCount;
+    this.setData({
+      searchResults: [...this.data.searchResults, ...res.result.songs],
+      resultsCount,
+    });
+    // 还可以请求下一次
+    if (resultsCount > offset) {
+      this.setData({ canReachBottom: true });
+    }
+  },
+  // 搜索之前的判断处理
+  checkBeforeSearch(isBottom) {
+    // 设置偏移位置，禁止下拉
+    if (isBottom === true) {
+      this.setData({
+        resultsOffset: this.data.resultsOffset + this.data.resultsLimit,
+        canReachBottom: false,
+      });
+      // 不够50首时按剩余的结果数量请求
+      if (
+        this.data.resultsCount <
+        this.data.resultsOffset + this.data.resultsLimit
+      ) {
+        this.setData({
+          resultsLimit: this.data.resultsCount - this.data.resultsOffset,
+        });
+      }
+    } else {
+      // 不是下拉则初始化
+      this.setData({
+        searchResults: [],
+        resultsOffset: 0,
+        canReachBottom: true,
+        resultsLimit: 50,
+      });
+    }
+  },
+
   // 给热门搜索和搜索建议添加同名自定义属性，事件对象传关键词即可合并处理两个关键词点击的搜索，再根据关键词修改搜索内容，即可调用handleSearched
   handleKeywordClick(e) {
     this.setData({ searchContent: e.currentTarget.dataset.keyword });

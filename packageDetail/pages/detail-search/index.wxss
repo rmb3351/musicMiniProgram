@@ -8,6 +8,7 @@ page {
   left: 20rpx;
   right: 20rpx;
   padding: 10rpx 0 !important;
+  z-index: 5;
 }
 
 /* 热门搜索 */
@@ -18,13 +19,13 @@ page {
 .hot .list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .hot .tag {
-  margin-right: 20rpx;
-  margin-bottom: 20rpx;
+  margin: 0 15rpx 35rpx 15rpx;
   border-radius: 16rpx;
-  background-color: #fff;
-  padding: 5rpx 0 0 12rpx;
+  background-color: rgb(250, 250, 250);
+  padding: 6rpx 16rpx;
   font-size: 26rpx;
 }
 .hot .tag:first-of-type {
@@ -56,8 +57,10 @@ page {
 
 /* 搜索标题 */
 .result {
+  position: relative;
   margin-top: 30rpx;
   padding: 10rpx;
+  z-index: 1;
 }
 .result .title {
   font-weight: 700;

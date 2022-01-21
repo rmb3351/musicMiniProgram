@@ -28,17 +28,15 @@ const playingStore = new HYEventStore({
     isStopped: false,
   },
   actions: {
-    playMusicWithSongIdActions(ctx, { id, replay = false }) {
+    async playMusicWithSongIdActions(ctx, { id, replay = false }) {
       // 歌曲相同且不是指定要重播时不用做任何处理
       if (ctx.id === id && !replay) return;
 
       ctx.id = id;
       ctx.isPlaying = true;
-      getPlayingSong(id).then((res) => {
-        ctx.playingSongInfo = res.songs[0];
-        ctx.durationTime = res.songs[0].dt;
-        inAuCtxt.title = ctx.playingSongInfo.name;
-      });
+      const songRes = await getPlayingSong(id);
+      ctx.playingSongInfo = songRes.songs[0];
+      ctx.durationTime = songRes.songs[0].dt;
       getSongLyrics(id).then((res) => {
         // 获取的歌曲字符串先进行解析，返回记录多少毫秒显示什么的数组
         const allLyrics = parseSongLyrics(res.lrc.lyric);
@@ -47,7 +45,8 @@ const playingStore = new HYEventStore({
 
       inAuCtxt.stop();
       inAuCtxt.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`;
-      inAuCtxt.title = id;
+      console.log(ctx.playingSongInfo.name);
+      inAuCtxt.title = ctx.playingSongInfo.name;
       if (ctx.isFirstPlaying) {
         ctx.isFirstPlaying = false;
         // 开启默认播放
@@ -71,8 +70,8 @@ const playingStore = new HYEventStore({
           ctx.currentLyricIndex = currentIndex;
         }
       });
-      inAuCtxt.onError((res) => {
-        console.log(res);
+      inAuCtxt.onError((err) => {
+        console.log(err);
       });
       // 为了统一后台底部栏和自己写的组件的状态
       inAuCtxt.onPlay(() => {

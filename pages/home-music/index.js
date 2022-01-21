@@ -13,6 +13,7 @@ const throttleGetSelectorRect = throttle(getSelectorRect, 1000, {
 Page({
   data: {
     banners: [],
+    swpSongs: [],
     swiperHeight: 0,
     isFirst: true,
     // 推荐歌曲（热门榜）前六条
@@ -40,6 +41,10 @@ Page({
       this.setData({
         banners: res.banners,
       });
+      const swpSongs = this.data.banners
+        .filter((item) => item.song)
+        .map((item) => item.song);
+      this.setData({ swpSongs });
     });
     // 获取热门歌单
     getSongMenu().then((res) => {
@@ -105,7 +110,7 @@ Page({
   // 监听事件
   toSearch() {
     wx.navigateTo({
-      url: "../../packageDetail/pages/detail-search/index",
+      url: "/packageDetail/pages/detail-search/index",
     });
   },
   handleMoreClick() {
@@ -119,7 +124,7 @@ Page({
   // 由于都是到detail-song界面，所以要传参区分
   toSong(rankingName) {
     wx.navigateTo({
-      url: `../../packageDetail/pages/detail-song/index?ranking=${rankingName}&type=rank`,
+      url: `/packageDetail/pages/detail-song/index?ranking=${rankingName}&type=rank`,
     });
   },
   // 播放歌曲的入口存储歌曲所在列表及所在位置
@@ -133,7 +138,27 @@ Page({
   },
   handleBarClick() {
     wx.navigateTo({
-      url: "/pages/music-play/index?id=" + this.data.playingSongInfo.id,
+      url:
+        "/packagePlaying/pages/music-play/index?id=" +
+        this.data.playingSongInfo.id,
     });
+  },
+  handleSwiperItemClick(e) {
+    // 获取当前歌曲id、跳转页面并发送请求
+    let index = e.currentTarget.dataset.index;
+    const swpItem = this.data.banners[index];
+    if (swpItem.song) {
+      const id = swpItem.targetId;
+      wx.navigateTo({
+        url: `/packagePlaying/pages/music-play/index?id=${id}`,
+      });
+      playingStore.dispatch("playMusicWithSongIdActions", { id });
+
+      // 添加播放列表和下标
+      const swpSongs = this.data.swpSongs;
+      playingStore.setState("playingSongList", swpSongs);
+      index = swpSongs.indexOf(swpItem);
+      playingStore.setState("playingSongIndex", index);
+    }
   },
 });

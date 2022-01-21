@@ -7,7 +7,7 @@
   <view class="hot">
     <view class="list">
       <block wx:for="{{hotKeywords}}" wx:key="first">
-        <view class="tag" bind:tap="handleKeywordClick" data-keyword="{{item.first}}">{{item.first}}</view>
+        <view class="tag" bind:tap="handleKeywordClick" data-keyword="{{item.searchWord}}">{{item.searchWord}}</view>
       </block>
     </view>
   </view>

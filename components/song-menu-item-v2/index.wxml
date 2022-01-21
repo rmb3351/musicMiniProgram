@@ -5,13 +5,13 @@
     <view class="name">{{item.name}}</view>
     <view class="source">
       <image class="icon" src="/assets/images/icons/sq_icon.png"></image>
-      <text wx:if="{{item.ar}}">
+      <text class="text-after" wx:if="{{item.ar}}">
         <block wx:for="{{item.ar}}" wx:key="index">
           <text>{{item.name}}</text>
           <text wx:if="{{index!==artistisLength}}">/</text>
         </block>
       </text>
-      <text wx:elif="{{item.artists}}">
+      <text class="text-after" wx:elif="{{item.artists}}">
         <block wx:for="{{item.artists}}" wx:key="index">
           <text>{{item.name}}</text>
           <text wx:if="{{index!==artistisLength}}">/</text>

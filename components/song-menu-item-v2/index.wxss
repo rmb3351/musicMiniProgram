@@ -16,24 +16,43 @@
 }
 .info .name {
   font-size: 30rpx;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
 }
 .info .source {
-  height: 24rpx;
+  position: relative;
   margin-top: 10rpx;
-  line-height: 24rpx;
+  max-height: 64rpx;
+  line-height: 32rpx;
   font-size: 24rpx;
   color: #666;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
 }
 .source .icon {
-  display: inline-block;
-  margin-right: 10rpx;
-  vertical-align: bottom;
+  position: absolute;
+  left: 0;
+  top: 6rpx;
   width: 38rpx;
   height: 24rpx;
 }
-/* .source text {
-  font-size: 24rpx;
-} */
+.source .text-after {
+  margin-left: 48rpx;
+}
 .source .dot {
   margin: 0 6rpx;
 }

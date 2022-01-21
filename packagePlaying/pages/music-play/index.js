@@ -1,5 +1,5 @@
 // pages/music-play/index.js
-import { inAuCtxt, playingStore } from "../../store/index";
+import { inAuCtxt, playingStore } from "../../../store/index";
 const gData = getApp().globalData;
 const playingIconNames = ["order", "random", "repeat"];
 Page({

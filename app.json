@@ -1,8 +1,7 @@
 {
   "pages": [
     "pages/home-music/index",
-    "pages/home-video/index",
-    "pages/music-play/index"
+    "pages/home-video/index"
   ],
   "subPackages": [{
     "root": "packageDetail",
@@ -12,7 +11,19 @@
       "pages/detail-search/index",
       "pages/detail-song/index"
     ]
+  }, {
+    "root": "packagePlaying",
+    "name": "pPlaying",
+    "pages": [
+      "pages/music-play/index"
+    ]
   }],
+  "preloadRule": {
+    "pages/home-music/index": {
+      "network": "all",
+      "packages": ["packageDetail", "packagePlaying"]
+    }
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fafafa",

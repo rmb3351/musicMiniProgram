@@ -6,7 +6,7 @@
   <!-- 轮播图 -->
   <swiper class="swiper" autoplay circular indicator-dots style="height: {{swiperHeight}}px;">
     <block wx:for="{{banners}}" wx:key="bannerId">
-      <swiper-item class="swiper-item">
+      <swiper-item class="swiper-item" bindtap="handleSwiperItemClick" data-index="{{index}}">
         <image class="swiper-item-image" src="{{item.pic}}" mode="widthFix" bindload="getImageHeight"></image>
       </swiper-item>
     </block>
