@@ -27,6 +27,7 @@ Component({
    */
   methods: {
     songClick() {
+      console.log(this.properties.item);
       const id = this.properties.item.id;
       wx.navigateTo({
         url: `/packagePlaying/pages/music-play/index?id=${id}`,

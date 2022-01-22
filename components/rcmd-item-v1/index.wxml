@@ -7,7 +7,7 @@
       <block wx:for="{{itemInfo.ar}}" wx:key="index">
         <text>{{item.name}}</text>
         <text wx:if="{{index!==itemInfo.ar.length-1}}">/</text>
-      </block> - {{itemInfo.alia[0]||itemInfo.al.name}}
+      </block> - {{itemInfo.alia[0]||itemInfo.alias[0]||itemInfo.al.name}}
     </view>
   </view>
   <view class="arrow">

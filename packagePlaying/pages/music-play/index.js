@@ -128,4 +128,7 @@ Page({
     const type = e.currentTarget.dataset.type;
     playingStore.dispatch("changeSongIndexInListAction", type);
   },
+  handleTabClick(e) {
+    this.setData({ currentPage: e.target.dataset.index });
+  },
 });

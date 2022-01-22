@@ -1,5 +1,10 @@
 // index.js
-import { getSwiperInfo, getSongMenu } from "../../service/getMusicData";
+import {
+  getSwiperInfo,
+  getSongMenu,
+  getAlbum,
+  getAlbumDetail,
+} from "../../service/getMusicData";
 
 import { rankingStore, rankingMap, playingStore } from "../../store/index";
 
@@ -143,22 +148,65 @@ Page({
         this.data.playingSongInfo.id,
     });
   },
-  handleSwiperItemClick(e) {
-    // 获取当前歌曲id、跳转页面并发送请求
-    let index = e.currentTarget.dataset.index;
-    const swpItem = this.data.banners[index];
-    if (swpItem.song) {
-      const id = swpItem.targetId;
-      wx.navigateTo({
-        url: `/packagePlaying/pages/music-play/index?id=${id}`,
-      });
-      playingStore.dispatch("playMusicWithSongIdActions", { id });
 
-      // 添加播放列表和下标
-      const swpSongs = this.data.swpSongs;
-      playingStore.setState("playingSongList", swpSongs);
-      index = swpSongs.indexOf(swpItem);
-      playingStore.setState("playingSongIndex", index);
+  // 处理swiperItem的回调
+  handleSwiperItemClick(e) {
+    // 获取这个swpItem
+    const index = e.currentTarget.dataset.index;
+    const swpItem = this.data.banners[index];
+    const id = swpItem.targetId;
+    switch (swpItem.targetType) {
+      case 1:
+        this.handleSwpItemSong(swpItem, id);
+        break;
+      case 10:
+        this.handleSwpItemAlbum(id);
+        break;
+      case 1000:
+        this.handleSwpItemSongMenu(id);
+        break;
+      case 1004:
+        this.handleSwpItemMV(id);
+        break;
+      case 1014:
+        console.log("视频");
+        break;
+      default:
+        console.log("其他");
+        break;
     }
   },
+  // 处理轮播图点击的一系列函数
+  // 单曲
+  handleSwpItemSong(swpItem, id) {
+    // 添加播放列表和下标
+    const swpSongs = this.data.swpSongs;
+    playingStore.setState("playingSongList", swpSongs);
+    const index = swpSongs.indexOf(swpItem);
+    playingStore.setState("playingSongIndex", index);
+
+    wx.navigateTo({
+      url: `/packagePlaying/pages/music-play/index?id=${id}`,
+    });
+    playingStore.dispatch("playMusicWithSongIdActions", { id });
+  },
+  // 专辑
+  handleSwpItemAlbum(id) {
+    wx.navigateTo({
+      url: `/packageDetail/pages/detail-song/index?id=${id}&type=album`,
+    });
+  },
+  // 歌单
+  handleSwpItemSongMenu(id) {
+    console.log("歌单");
+    wx.navigateTo({
+      url: `/packageDetail/pages/detail-song/index?id=${id}&type=menu`,
+    });
+  },
+  handleSwpItemMV(id) {
+    wx.navigateTo({
+      url: `/packageDetail/pages/detail-video/index?id=${id}`,
+    });
+  },
+  handleSwpItemVideo(id) {},
 });

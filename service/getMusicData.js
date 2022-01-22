@@ -25,3 +25,10 @@ export function getSongMenuDetail(id) {
     id,
   });
 }
+
+export function getAlbum(id) {
+  return sfRequest.get("/album", {
+    id,
+  });
+}
+

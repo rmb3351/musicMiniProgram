@@ -1,8 +1,11 @@
 import { getTopMV } from "../../service/getMVData";
+const gData = getApp().globalData;
 Page({
   data: {
     topMVs: [],
     hasMore: true,
+    contentHeight:
+      gData.screenHeight - gData.statusBarHeight - gData.navBarHeight,
   },
   async getTopMVData(offset) {
     // 请求不是第一段数据时，要判断是否越界
@@ -20,6 +23,7 @@ Page({
         hasMore: res.hasMore,
       });
     }
+    console.log(res);
   },
   onLoad(options) {
     this.getTopMVData(0);

@@ -1,16 +1,16 @@
-<!--pages/music-play/index.wxml-->
 <wxs src="/utils/format.wxs" module="format"></wxs>
+
 <image class="bg-image" mode="aspectFill" src="{{playingSongInfo.al.picUrl}}"></image>
 <view class="bg-cover"></view>
 <nav-bar bind:leftClick="handleLeftClick">
-  <view slot="center" class="tab">
-    <view class="{{currentPage===0?'active':''}}">歌曲</view>
+  <view slot="center" class="tab" bindtap="handleTabClick">
+    <view class="{{currentPage===0?'active':''}}" data-index="{{0}}">歌曲</view>
     <view class="divider">|</view>
-    <view class="{{currentPage===1?'active':''}}">歌词</view>
+    <view class="{{currentPage===1?'active':''}}" data-index="{{1}}">歌词</view>
   </view>
 </nav-bar>
 
-<swiper class="page-content" style="height: {{contentHeight}}px;" bindchange="pageChange">
+<swiper id="page-content" class="page-content" style="height: {{contentHeight}}px;" current="{{currentPage}}" bindchange="pageChange">
   <!-- 歌曲详情页 -->
   <swiper-item class="music">
     <!-- 封面和基本信息 -->

@@ -1,7 +1,20 @@
 <!--pages/home-video/index.wxml-->
-
-<view class="video">
-  <view class="item" wx:for="{{topMVs}}" wx:key="id">
-    <video-item-v1 mvInfo="{{item}}"></video-item-v1>
+<nav-bar class="nav-bar">
+  <view slot="top"></view>
+  <view slot="left"></view>
+  <view slot="center">
+    <block wx:for="{{5}}">
+      <text class="sub-tab">标题</text>
+    </block>
   </view>
-</view>
+</nav-bar>
+<swiper class="video-list">
+  <swiper-item>
+    <scroll-view class="video">
+      <view class="item" wx:for="{{topMVs}}" wx:key="id">
+        <video-item-v1 mvInfo="{{item}}"></video-item-v1>
+      </view>
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>2</swiper-item>
+</swiper>

@@ -26,11 +26,7 @@ Component({
     toMenuDetail(e) {
       const id = e.currentTarget.dataset.info.id;
       wx.navigateTo({
-        url: `../../packageDetail/pages/detail-song/index?id=${id}&type=menu`,
-      });
-      wx.request({
-        url: "https://self-defined-netease-cloud-music-api.vercel.app/toplist",
-        success(res) {},
+        url: `/packageDetail/pages/detail-song/index?id=${id}&type=menu`,
       });
     },
   },

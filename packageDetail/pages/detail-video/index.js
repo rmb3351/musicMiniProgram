@@ -33,21 +33,5 @@ Page({
       mvDetails: resDetails.data,
       relatedVideos: resRelated.data,
     });
-    // 弃用，因为异步请求无法控制获取数据后才执行后面读取和使用的操作
-    // getmvURLInfo(id).then(res => {
-    //   this.setData({
-    //     mvURLInfo: res.data
-    //   })
-    // })
-    // getRealatedVideos(id).then(res => {
-    //   this.setData({
-    //     relatedVideos: res.data
-    //   })
-    // })
-    // getMVDetail(id).then(res => {
-    //   this.setData({
-    //     mvDetails: res.data
-    //   })
-    // })
   },
 });

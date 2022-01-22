@@ -1,4 +1,10 @@
 /* base-ui/nav-bar/index.wxss */
+.top-slot:empty + .status-bar {
+  display: block;
+}
+.status-bar {
+  display: none;
+}
 .nav-bar {
   display: flex;
   text-align: center;

@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "video-item-v1": "../../components/video-item-v1/index"
+    "video-item-v1": "../../components/video-item-v1/index",
+    "nav-bar": "/base-ui/nav-bar"
   },
   "enablePullDownRefresh": true
 }

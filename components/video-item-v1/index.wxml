@@ -8,9 +8,12 @@
     </image>
     <view class="info">
       <view class="count">{{format.formatCount(mvInfo.playCount)}}</view>
-      <view class="duration">{{format.formatTime(mvInfo.mv.videos[0].duration)}}</view>
+      <view class="duration">{{format.formatTime(mvInfo.duration)}}</view>
     </view>
   </view>
   <view class="content">
-    {{mvInfo.name}} - {{mvInfo.artistName}}</view>
+    {{mvInfo.name}} - <block wx:for="{{mvInfo.artists}}" wx:key="index">
+      <text>{{item.name}}<text wx:if="{{index!==mvInfo.artists.length-1}}">/</text></text>
+    </block>
+  </view>
 </view>

@@ -1,4 +1,11 @@
 /* pages/home-video/index.wxss */
+.sub-tab {
+  margin-right: 25rpx;
+}
+.video-list {
+  display: block;
+  box-sizing: border-box;
+}
 .video {
   display: flex;
   flex-wrap: wrap;

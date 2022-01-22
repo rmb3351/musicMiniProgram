@@ -2,7 +2,7 @@
 <block wx:if="{{type==='rank'}}">
   <area-header title="{{songInfo.name}}" showRight="{{false}}"></area-header>
 </block>
-<block wx:elif="{{type==='menu'}}">
+<block wx:elif="{{type==='menu'||type==='album'}}">
   <song-detail-header songInfo="{{songInfo}}"></song-detail-header>
 </block>
 <view class="song-list">
