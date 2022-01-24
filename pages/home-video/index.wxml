@@ -1,20 +1,17 @@
 <!--pages/home-video/index.wxml-->
-<nav-bar class="nav-bar">
-  <view slot="top"></view>
-  <view slot="left"></view>
-  <view slot="center">
-    <block wx:for="{{5}}">
-      <text class="sub-tab">标题</text>
-    </block>
-  </view>
-</nav-bar>
-<swiper class="video-list">
-  <swiper-item>
-    <scroll-view class="video">
-      <view class="item" wx:for="{{topMVs}}" wx:key="id">
-        <video-item-v1 mvInfo="{{item}}"></video-item-v1>
+<view class="mv-tabs">
+  <block wx:for="{{swiperItemsInfo}}" wx:key="index">
+    <text class="sub-tab {{currentIndex===item.index?'active':''}}" bindtap="handleTabClick" data-index="{{item.index}}">{{item.area}}</text>
+  </block>
+</view>
+<swiper class="video-list" style="height: {{contentHeights[currentIndex]}}px;" bindchange="handleItemChange" current="{{currentIndex}}">
+  <block wx:for="{{swiperItemsInfo}}" wx:key="index">
+    <swiper-item class="list-all">
+      <view class="video">
+        <view class="item" wx:for="{{item.topMVs}}" wx:key="index" wx:for-item="mvItem">
+          <video-item-v1 mvInfo="{{mvItem}}"></video-item-v1>
+        </view>
       </view>
-    </scroll-view>
-  </swiper-item>
-  <swiper-item>2</swiper-item>
+    </swiper-item>
+  </block>
 </swiper>

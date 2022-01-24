@@ -1,10 +1,23 @@
 /* pages/home-video/index.wxss */
-.sub-tab {
-  margin-right: 25rpx;
+.mv-tabs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  z-index: 5;
+}
+.active {
+  border-bottom: 3px solid rgb(38, 206, 138);
+  font-size: 23px;
+  font-weight: 550;
 }
 .video-list {
-  display: block;
-  box-sizing: border-box;
+  margin-top: 53px;
 }
 .video {
   display: flex;
