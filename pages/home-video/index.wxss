@@ -16,10 +16,23 @@
   font-size: 23px;
   font-weight: 550;
 }
+
+/* 遮罩层样式 */
+.content-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  z-index: 10;
+}
+
 .video-list {
-  margin-top: 53px;
+  margin-top: 55px;
 }
 .video {
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;

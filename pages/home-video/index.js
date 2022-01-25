@@ -3,9 +3,14 @@ import getSelectorRect from "../../utils/getSelectorRect";
 Page({
   data: {
     currentIndex: 0,
+    // 记录每个类别的名称、offset、topMVs等信息
     swiperItemsInfo: [],
+    // 每个类别内容的高度
     contentHeights: [],
+    // 每个类别当前滚动的高度
     scrollTops: [],
+    // 是否可以发送新网络请求的决定变量
+    canRefreshPage: false,
   },
 
   // 自带回调
@@ -15,7 +20,7 @@ Page({
   },
   // 上拉下拉到位监听
   onReachBottom() {
-    this.setOffsetThenGetData(false);
+    if (this.data.canRefreshPage) this.setOffsetThenGetData(false);
   },
   onPullDownRefresh() {
     this.setOffsetThenGetData(true);
@@ -34,7 +39,7 @@ Page({
       this.setOffsetThenGetData(true);
     } else {
       wx.pageScrollTo({
-        scrollTop: 53 - this.data.scrollTops[currentIndex],
+        scrollTop: this.data.scrollTops[currentIndex],
         duration: 0,
       });
     }
@@ -47,7 +52,7 @@ Page({
       this.setOffsetThenGetData(true);
     } else {
       wx.pageScrollTo({
-        scrollTop: 53 - this.data.scrollTops[currentIndex],
+        scrollTop: this.data.scrollTops[currentIndex],
         duration: 0,
       });
     }
@@ -88,6 +93,7 @@ Page({
   async getTopMVData(itemInfo) {
     // 请求不是第一段数据时，要判断是否越界
     if (itemInfo.offset !== 0 && !itemInfo.hasMore) return;
+    this.setData({ canRefreshPage: false });
     const res = await getTopMV(itemInfo);
     // 不越界或者是第一段，则分情况设置数据
     if (itemInfo.offset === 0) {
@@ -102,6 +108,7 @@ Page({
     swiperItemsInfo[this.data.currentIndex] = itemInfo;
     this.setData({ swiperItemsInfo });
     this.updateCurrentItemHeight();
+    this.setData({ canRefreshPage: true });
   },
 
   // 更新组件高度
@@ -117,7 +124,7 @@ Page({
   async setScrollTop(currentIndex) {
     const res = await getSelectorRect(".video-list");
     const scrollTops = this.data.scrollTops;
-    scrollTops[currentIndex] = res.top;
+    scrollTops[currentIndex] = 55 - res.top;
     this.setData({ scrollTops });
   },
 });
