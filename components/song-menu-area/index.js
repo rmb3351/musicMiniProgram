@@ -23,10 +23,17 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    // 对应歌单的详情页跳转
     toMenuDetail(e) {
       const id = e.currentTarget.dataset.info.id;
       wx.navigateTo({
         url: `/packageDetail/pages/detail-song/index?id=${id}&type=menu`,
+      });
+    },
+    // 歌单分类列表页跳转
+    toDetailMenu() {
+      wx.navigateTo({
+        url: `/packageDetail/pages/detail-menu/index`,
       });
     },
   },

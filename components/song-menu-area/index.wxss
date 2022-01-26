@@ -8,6 +8,7 @@
   display: inline-block;
   margin-right: 20rpx;
   vertical-align: top;
+  width: 220rpx;
 }
 .menu-item:first-of-type {
   margin-left: 20rpx;

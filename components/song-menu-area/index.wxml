@@ -1,5 +1,5 @@
 <!--歌单封装-->
-<area-header title="{{title}}"></area-header>
+<area-header title="{{title}}" bindtap="toDetailMenu"></area-header>
 <scroll-view scroll-x class="menu-view">
   <block wx:for="{{songMenu}}" wx:key="index">
     <song-menu-item class="menu-item" itemInfo="{{item}}" bindtap="toMenuDetail" data-info="{{item}}"></song-menu-item>

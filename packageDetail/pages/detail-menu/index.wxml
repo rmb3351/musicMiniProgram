@@ -1,0 +1,13 @@
+<!--全部歌单列表页-->
+<view class="menu">
+  <block wx:for="{{songMenuList}}" wx:key="name">
+    <view class="title">{{item.category}}</view>
+    <view class="menu-list">
+      <block wx:for="{{item.list}}" wx:for-item="menuItem" wx:key="id">
+        <!-- <view class="menu-list-item"> -->
+        <song-menu-item class="menu-list-item" itemInfo="{{menuItem}}" bindtap="toMenuDetail" data-info="{{menuItem}}"></song-menu-item>
+        <!-- </view> -->
+      </block>
+    </view>
+  </block>
+</view>

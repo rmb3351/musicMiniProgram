@@ -1,6 +1,6 @@
 /* components/song-menu-item/index.wxss */
 .item {
-  width: 220rpx;
+  width: 100%;
 }
 .top {
   position: relative;

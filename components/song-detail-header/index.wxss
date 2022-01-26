@@ -38,7 +38,23 @@
   height: 220rpx;
   flex: 1;
 }
+.content .title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -moz-box;
+  -moz-line-clamp: 2;
+  -moz-box-orient: vertical;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+}
 .content .author {
+  position: absolute;
+  left: 0;
+  top: 42px;
   display: flex;
   align-items: center;
   margin-top: 20rpx;
@@ -51,6 +67,10 @@
 .content .author .nickname {
   margin-left: 18rpx;
   font-size: 24rpx;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .content .info .desc {
   position: absolute;

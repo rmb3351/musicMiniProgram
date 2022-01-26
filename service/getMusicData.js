@@ -20,6 +20,10 @@ export function getSongMenu(category = "全部", limit = 12, offset = 0) {
   });
 }
 
+export function getSongMenuList() {
+  return sfRequest.get("/playlist/hot");
+}
+
 export function getSongMenuDetail(id) {
   return sfRequest.get("/playlist/detail", {
     id,
@@ -31,4 +35,3 @@ export function getAlbum(id) {
     id,
   });
 }
-
