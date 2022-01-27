@@ -27,3 +27,14 @@ export function getRealatedVideos(id) {
     id,
   });
 }
+
+export function getVideoURLInfo(id) {
+  return sfRequest.get("/video/url", {
+    id,
+  });
+}
+export function getVideoDetail(id) {
+  return sfRequest.get("/video/detail", {
+    id,
+  });
+}

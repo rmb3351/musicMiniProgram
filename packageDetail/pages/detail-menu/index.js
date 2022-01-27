@@ -27,7 +27,6 @@ Page({
       for (const index in menuLists) {
         const menuList = menuLists[index];
         songMenuList[index].list = menuList.playlists;
-        console.log(songMenuList[index].list);
       }
       this.setData({ songMenuList });
     });

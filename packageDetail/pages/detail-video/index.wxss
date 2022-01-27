@@ -7,3 +7,22 @@ video {
   top: 0;
   width: 100%;
 }
+
+.info {
+  padding: 30rpx;
+}
+
+.info .title {
+  font-weight: 700;
+}
+
+.info .from,
+.info .other {
+  font-size: 24rpx;
+  margin-top: 10rpx;
+  color: #666;
+}
+
+.recommend {
+  padding: 30rpx;
+}

@@ -1,5 +1,27 @@
 <!--pages/detail-video/index.wxml-->
-<video src="{{mvURLInfo.url}}" autoplay object-fit="fill"></video>
-<block wx:for="{{200}}" wx:key="*this">
-  <view>数据{{item}}</view>
-</block>
+<video src="{{mvURLInfo.url}}" autoplay></video>
+
+<wxs src="../../../utils/format.wxs" module="format"></wxs>
+
+<!-- 信息 -->
+<view class="info">
+  <view class="title">{{mvDetails.name}}</view>
+  <!-- 专辑和歌手 -->
+  <view class="from">
+    <block wx:for="{{mvDetails.artists}}" wx:key="id"><text>{{item.name}}</text>
+      <text wx:if="{{index!==mvDetails.artists.length-1}}">/</text>
+    </block><text wx:if="{{mvURLInfo.alias}}"> - {{mvURLInfo.alias[0]}}</text>
+  </view>
+  <!-- 播放次数和发布时间 -->
+  <view class="other"><text class="play-count">{{format.formatCount(mvDetails.playCount)}}次播放 -</text><text class="publish-time">{{mvDetails.publishTime}}</text></view>
+</view>
+
+<!-- 推荐 -->
+<view class="recommend">
+  <view class="title">推荐视频</view>
+  <view class="video-list">
+    <block wx:for="{{relatedVideos}}" wx:key="vid">
+      <video-item-v2 itemInfo="{{item}}"></video-item-v2>
+    </block>
+  </view>
+</view>
