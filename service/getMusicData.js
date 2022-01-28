@@ -30,6 +30,13 @@ export function getSongMenuDetail(id) {
   });
 }
 
+// 获取歌单全部歌曲的请求
+export function getSongMenuAll(id) {
+  return sfRequest.get("/playlist/track/all", {
+    id,
+  });
+}
+
 export function getAlbum(id) {
   return sfRequest.get("/album", {
     id,

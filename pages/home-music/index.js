@@ -198,7 +198,6 @@ Page({
   },
   // 歌单
   handleSwpItemSongMenu(id) {
-    console.log("歌单");
     wx.navigateTo({
       url: `/packageDetail/pages/detail-song/index?id=${id}&type=menu`,
     });

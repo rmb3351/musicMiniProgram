@@ -20,9 +20,10 @@ Component({
    */
   methods: {
     mvItemClick(e) {
-      const iid = e.currentTarget.dataset.click.id;
+      const id = e.currentTarget.dataset.click.id;
+      const type = e.currentTarget.dataset.type;
       wx.navigateTo({
-        url: `/packageDetail/pages/detail-video/index?id=${iid}`,
+        url: `/packageDetail/pages/detail-video/index?id=${id}&type=${type}`,
       });
     },
   },

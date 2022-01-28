@@ -1,9 +1,4 @@
 // components/video-item-v2/index.js
-import {
-  getVideoURLInfo,
-  getVideoDetail,
-  getRealatedVideos,
-} from "../../service/getMVData";
 Component({
   /**
    * 组件的属性列表
@@ -24,16 +19,11 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    handleItemClick() {
+    handleItemClick(e) {
       const id = this.properties.itemInfo.vid;
-      getVideoURLInfo(id).then((res) => {
-        console.log(res);
-      });
-      getVideoDetail(id).then((res) => {
-        console.log(res);
-      });
-      getRealatedVideos(id).then((res) => {
-        console.log(res);
+      const type = e.currentTarget.dataset.type;
+      wx.navigateTo({
+        url: `/packageDetail/pages/detail-video/index?id=${id}&type=${type}`,
       });
     },
   },

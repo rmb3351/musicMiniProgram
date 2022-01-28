@@ -1,6 +1,10 @@
 // pages/detail-song/index.js
 import { rankingStore, playingStore } from "../../../store/index";
-import { getSongMenuDetail, getAlbum } from "../../../service/getMusicData";
+import {
+  getSongMenuDetail,
+  getSongMenuAll,
+  getAlbum,
+} from "../../../service/getMusicData";
 Page({
   /**
    * 页面的初始数据
@@ -35,14 +39,16 @@ Page({
   },
 
   // 不同类型的歌曲列表的解析
-  parseDiffSongListType(options) {
+  async parseDiffSongListType(options) {
     if (options.type === "rank") {
       this.setData({ ranking: options.ranking, type: options.type });
       rankingStore.onState(this.data.ranking, this.updateRankingData);
     } else if (options.type === "menu") {
-      getSongMenuDetail(options.id).then((res) => {
-        this.setData({ songInfo: res.playlist, type: options.type });
-        console.log(this.data.songInfo);
+      const { playlist } = await getSongMenuDetail(options.id);
+      this.setData({ songInfo: playlist, type: options.type });
+      getSongMenuAll(options.id).then((res) => {
+        playlist.tracks = res.songs;
+        this.setData({ songInfo: playlist });
       });
     } else if (options.type === "album") {
       getAlbum(options.id).then(({ album, songs }) => {
