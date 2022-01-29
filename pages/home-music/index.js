@@ -1,10 +1,5 @@
 // index.js
-import {
-  getSwiperInfo,
-  getSongMenu,
-  getAlbum,
-  getAlbumDetail,
-} from "../../service/getMusicData";
+import { getSwiperInfo, getSongMenu } from "../../service/getMusicData";
 
 import { rankingStore, rankingMap, playingStore } from "../../store/index";
 
@@ -40,6 +35,11 @@ Page({
     // 分发actions发送请求获取数据
     rankingStore.dispatch("getRankingDataActions");
   },
+  // 保存播放状态，为切换到视频home页做准备
+  onHide() {
+    playingStore.dispatch("saveInitialIsPlayingAction");
+  },
+
   getMusicData() {
     // 获取轮播图的数据
     getSwiperInfo().then((res) => {
@@ -169,7 +169,7 @@ Page({
         this.handleSwpItemMV(id);
         break;
       case 1014:
-        console.log("视频");
+        this.handleSwpItemVideo(id);
         break;
       default:
         console.log("其他");
@@ -207,5 +207,9 @@ Page({
       url: `/packageDetail/pages/detail-video/index?id=${id}`,
     });
   },
-  handleSwpItemVideo(id) {},
+  handleSwpItemVideo(id) {
+    wx.navigateTo({
+      url: `/packageDetail/pages/detail-video/index?id=${id}`,
+    });
+  },
 });

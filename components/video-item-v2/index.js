@@ -21,9 +21,8 @@ Component({
   methods: {
     handleItemClick(e) {
       const id = this.properties.itemInfo.vid;
-      const type = e.currentTarget.dataset.type;
       wx.navigateTo({
-        url: `/packageDetail/pages/detail-video/index?id=${id}&type=${type}`,
+        url: `/packageDetail/pages/detail-video/index?id=${id}`,
       });
     },
   },

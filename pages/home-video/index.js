@@ -1,5 +1,6 @@
 import { getTopMV } from "../../service/getMVData";
 import getSelectorRect from "../../utils/getSelectorRect";
+import { playingStore, inAuCtxt } from "../../store/index";
 Page({
   data: {
     currentIndex: 0,
@@ -11,10 +12,16 @@ Page({
     scrollTops: [],
     // 是否可以发送新网络请求的决定变量
     canRefreshPage: false,
+
+    // 从store中获取并决定是否能播放音乐的两个data
+    initialIsPlaying: false,
   },
 
   // 自带回调
   onLoad(options) {
+    playingStore.onState("initialIsPlaying", (res) => {
+      this.setData({ initialIsPlaying: res });
+    });
     this.initialSwiperItemsInfo();
     this.setOffsetThenGetData(true);
   },
@@ -25,6 +32,13 @@ Page({
   onPullDownRefresh() {
     this.setOffsetThenGetData(true);
     wx.stopPullDownRefresh();
+  },
+  // 隐藏之前保存播放状态
+  onHide() {
+    playingStore.dispatch("saveInitialIsPlayingAction");
+  },
+  onShow() {
+    if (this.data.initialIsPlaying) inAuCtxt.play();
   },
 
   //自定义监听

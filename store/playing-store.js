@@ -26,6 +26,9 @@ const playingStore = new HYEventStore({
     isPlaying: false,
     isFirstPlaying: true,
     isStopped: false,
+
+    // 保存初始播放状态
+    initialIsPlaying: false,
   },
   actions: {
     async playMusicWithSongIdActions(ctx, { id, replay = false }) {
@@ -45,7 +48,6 @@ const playingStore = new HYEventStore({
 
       inAuCtxt.stop();
       inAuCtxt.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`;
-      console.log(ctx.playingSongInfo.name);
       inAuCtxt.title = ctx.playingSongInfo.name;
       if (ctx.isFirstPlaying) {
         ctx.isFirstPlaying = false;
@@ -89,6 +91,7 @@ const playingStore = new HYEventStore({
         this.dispatch("changeSongIndexInListAction");
       });
     },
+
     changePlayingStatusAction(ctx, isPlaying) {
       ctx.isPlaying = isPlaying;
       if (isPlaying && ctx.isStopped) {
@@ -101,6 +104,7 @@ const playingStore = new HYEventStore({
       ctx.isPlaying ? inAuCtxt.play() : inAuCtxt.pause();
       if (ctx.isStopped) ctx.isStopped = false;
     },
+
     // 切歌时的action
     changeSongIndexInListAction(ctx, type = "next") {
       let index = ctx.playingSongIndex;
@@ -133,6 +137,11 @@ const playingStore = new HYEventStore({
         id,
         replay: true,
       });
+    },
+
+    // 保存切换到视频页时是否播放音乐状态的action
+    saveInitialIsPlayingAction(ctx) {
+      ctx.initialIsPlaying = ctx.isPlaying;
     },
   },
 });
